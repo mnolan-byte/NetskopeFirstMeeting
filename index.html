@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netskope — Plain English Platform Guide</title>
+  <style>
+    :root {
+      --brand: #00A6C8;
+      --brand-dark: #007DA0;
+      --brand-light: #E0F7FC;
+      --accent: #FF6B35;
+      --text: #1A1A2E;
+      --text-light: #5A6272;
+      --surface: #F8FAFB;
+      --white: #FFFFFF;
+      --border: #E2E8F0;
+      --green: #10B981;
+      --purple: #7C3AED;
+      --orange: #F59E0B;
+      --pink: #EC4899;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--surface);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0A0E27 0%, #0D1B3E 40%, #003D5C 100%);
+      color: white;
+      padding: 80px 40px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(0,166,200,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,166,200,0.2);
+      border: 1px solid rgba(0,166,200,0.4);
+      color: #5CE8FF;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span { color: #00D4FF; }
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #00D4FF;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ─── LAYOUT ────────────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* ─── THE BIG PICTURE ───────────────────────────────────── */
+    .big-picture {
+      background: white;
+    }
+    .analogy-box {
+      background: linear-gradient(135deg, #EFF9FC, #E8F4F8);
+      border-left: 4px solid var(--brand);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+    .analogy-box strong { color: var(--brand-dark); }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pillar-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    .pillar-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .pillar-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--text-light);
+    }
+
+    /* ─── PLATFORM OVERVIEW ─────────────────────────────────── */
+    .platform-section {
+      background: var(--surface);
+    }
+    .platform-visual {
+      background: linear-gradient(135deg, #0A0E27, #0D1B3E);
+      border-radius: 20px;
+      padding: 48px;
+      color: white;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .platform-visual h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #00D4FF;
+      margin-bottom: 8px;
+    }
+    .platform-visual p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .platform-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .layer {
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .layer-icon { font-size: 18px; }
+    .layer-1 { background: rgba(0,166,200,0.2); border: 1px solid rgba(0,166,200,0.4); }
+    .layer-2 { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); }
+    .layer-3 { background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4); }
+    .layer-4 { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); }
+    .layer-5 { background: rgba(236,72,153,0.2); border: 1px solid rgba(236,72,153,0.4); }
+
+    /* ─── PRODUCT CATEGORIES ────────────────────────────────── */
+    .category-section { background: white; }
+    .category-block {
+      margin-bottom: 64px;
+    }
+    .category-block:last-child { margin-bottom: 0; }
+    .category-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .cat-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .category-label h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+    .category-label p {
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      background: var(--surface);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 6px 20px rgba(0,166,200,0.1);
+    }
+    .product-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .product-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .product-desc {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* color themes per category */
+    .theme-brand .cat-icon { background: #E0F7FC; }
+    .theme-brand .category-label h2 { color: #007DA0; }
+    .theme-brand .product-tag { background: #E0F7FC; color: #007DA0; }
+    .theme-brand .product-card:hover { border-color: var(--brand); }
+
+    .theme-purple .cat-icon { background: #EDE9FE; }
+    .theme-purple .category-label h2 { color: #5B21B6; }
+    .theme-purple .product-tag { background: #EDE9FE; color: #5B21B6; }
+    .theme-purple .product-card:hover { border-color: var(--purple); box-shadow: 0 6px 20px rgba(124,58,237,0.1); }
+
+    .theme-green .cat-icon { background: #D1FAE5; }
+    .theme-green .category-label h2 { color: #065F46; }
+    .theme-green .product-tag { background: #D1FAE5; color: #065F46; }
+    .theme-green .product-card:hover { border-color: var(--green); box-shadow: 0 6px 20px rgba(16,185,129,0.1); }
+
+    .theme-orange .cat-icon { background: #FEF3C7; }
+    .theme-orange .category-label h2 { color: #92400E; }
+    .theme-orange .product-tag { background: #FEF3C7; color: #92400E; }
+    .theme-orange .product-card:hover { border-color: var(--orange); box-shadow: 0 6px 20px rgba(245,158,11,0.1); }
+
+    .theme-pink .cat-icon { background: #FCE7F3; }
+    .theme-pink .category-label h2 { color: #9D174D; }
+    .theme-pink .product-tag { background: #FCE7F3; color: #9D174D; }
+    .theme-pink .product-card:hover { border-color: var(--pink); box-shadow: 0 6px 20px rgba(236,72,153,0.1); }
+
+    /* ─── SOLUTIONS ─────────────────────────────────────────── */
+    .solutions-section { background: var(--surface); }
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .use-case-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .use-case-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .use-case-icon { font-size: 26px; margin-bottom: 12px; display: block; }
+    .use-case-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .use-case-card p { font-size: 0.875rem; color: var(--text-light); }
+
+    /* ─── INDUSTRIES ────────────────────────────────────────── */
+    .industries-section { background: white; }
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .industry-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .industry-chip:hover {
+      background: var(--brand-light);
+      border-color: var(--brand);
+      color: var(--brand-dark);
+    }
+    .industry-chip .ic-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+
+    /* ─── HOW IT ALL FITS ───────────────────────────────────── */
+    .fit-section {
+      background: linear-gradient(135deg, #0A0E27, #0D1B3E);
+      color: white;
+    }
+    .fit-section .section-tag { color: #5CE8FF; }
+    .fit-section .section-header h2 { color: white; }
+    .fit-section .section-header p { color: rgba(255,255,255,0.65); }
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .journey-step {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--brand);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      margin: 0 auto 16px;
+      color: white;
+    }
+    .journey-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .journey-step p { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    .footer-bar {
+      background: #0A0E27;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.85rem;
+    }
+    .footer-bar a { color: #5CE8FF; text-decoration: none; }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 80px; }
+      .hero-stats { gap: 24px; }
+      section { padding: 48px 0; }
+      .platform-visual { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Platform Overview</div>
+  <h1>What the heck is<br/><span>Netskope</span>?</h1>
+  <p>A plain-English breakdown of one of the world's leading cloud security platforms — what it does, why it exists, and how all the pieces fit together.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">3,000+</span>
+      <span class="stat-label">Customers Worldwide</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">75+</span>
+      <span class="stat-label">Countries</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">#1</span>
+      <span class="stat-label">Gartner SSE Leader</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">2×</span>
+      <span class="stat-label">SASE Magic Quadrant Leader</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ THE BIG PICTURE ═══════════════════════════════════════ -->
+<section class="big-picture">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">The Big Picture</div>
+      <h2>The problem Netskope solves</h2>
+      <p>Before we dive into products, here's the "aha" moment that explains why Netskope exists at all.</p>
+    </div>
+
+    <div class="analogy-box">
+      <strong>Think of it this way:</strong> Ten years ago, your company's data lived in a building. Your IT team put a big metal fence around it (a firewall), and everyone who needed access came to that building. Simple. Then the cloud happened. Now your data lives in Salesforce, your people work from Starbucks, and half your apps are in AWS. The old metal fence is useless. <strong>Netskope is the new fence — one that works everywhere your people and data actually are.</strong>
+    </div>
+
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon" style="background:#E0F7FC;">🌐</div>
+        <h3>The World Went Cloud</h3>
+        <p>90%+ of enterprise workloads now live in the cloud. Traditional security tools were designed for on-premises networks and simply don't work anymore.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" style="background:#EDE9FE;">🏠</div>
+        <h3>Work Went Everywhere</h3>
+        <p>Employees work from home, coffee shops, airports. There's no "inside the office" to protect anymore. Security has to follow the person, not the building.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" style="background:#D1FAE5;">🤖</div>
+        <h3>AI Changed Everything</h3>
+        <p>Employees are pasting sensitive data into ChatGPT, using AI tools, and building AI workflows. Organizations need to enable that safely — not just block it.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon" style="background:#FEF3C7;">🛡️</div>
+        <h3>Threats Got Smarter</h3>
+        <p>Ransomware, phishing, and insider threats are sophisticated. Legacy antivirus and firewalls can't see or stop attacks that live inside cloud apps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PLATFORM OVERVIEW ════════════════════════════════════ -->
+<section class="platform-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">The Platform</div>
+      <h2>Netskope One — one platform to rule them all</h2>
+      <p>Instead of buying 10 different security tools from 10 vendors, Netskope packages everything into a single, unified cloud platform.</p>
+    </div>
+
+    <div class="platform-visual">
+      <h3>The Netskope One Platform</h3>
+      <p>Everything is built natively on the same cloud infrastructure, sharing the same data, policies, and AI engine — not bolted together afterthought.</p>
+      <div class="platform-layers">
+        <div class="layer layer-1">
+          <span class="layer-icon">🧠</span>
+          <div>
+            <strong>SkopeAI</strong>
+            <div style="font-size:0.8rem;opacity:0.7;font-weight:400">AI & ML engine powering every decision across the platform</div>
+          </div>
+        </div>
+        <div class="layer layer-2">
+          <span class="layer-icon">🔒</span>
+          <div>
+            <strong>Zero Trust Engine</strong>
+            <div style="font-size:0.8rem;opacity:0.7;font-weight:400">Never trust, always verify — every user, device, and app</div>
+          </div>
+        </div>
+        <div class="layer layer-3">
+          <span class="layer-icon">☁️</span>
+          <div>
+            <strong>Web, Cloud & AI Security (SSE)</strong>
+            <div style="font-size:0.8rem;opacity:0.7;font-weight:400">Secure every click, every cloud app, every AI tool</div>
+          </div>
+        </div>
+        <div class="layer layer-4">
+          <span class="layer-icon">📡</span>
+          <div>
+            <strong>Network Infrastructure (NewEdge / SD-WAN)</strong>
+            <div style="font-size:0.8rem;opacity:0.7;font-weight:400">Global network backbone that connects people to apps fast & safely</div>
+          </div>
+        </div>
+        <div class="layer layer-5">
+          <span class="layer-icon">🗂️</span>
+          <div>
+            <strong>Data Security</strong>
+            <div style="font-size:0.8rem;opacity:0.7;font-weight:400">See and protect your sensitive data everywhere it travels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ══════════════════════════════════════════════ -->
+<section class="category-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Products</div>
+      <h2>Every product, explained simply</h2>
+      <p>Here's what each piece of the Netskope platform actually does — no jargon, no fluff.</p>
+    </div>
+
+    <!-- ── 1. CONVERGED (SASE / SSE) ── -->
+    <div class="category-block theme-brand">
+      <div class="category-label">
+        <div class="cat-icon">🏗️</div>
+        <div>
+          <h2>The Big Bundles — SASE &amp; SSE</h2>
+          <p>If you buy one thing from Netskope, it's probably one of these</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">SSE</div>
+          <div class="product-name">Security Service Edge (SSE)</div>
+          <p class="product-desc">The cloud-delivered security half of the platform. Think of it as: every time you or your employee opens a browser or cloud app, SSE is invisibly watching, filtering, and protecting that connection. It includes the SWG, CASB, ZTNA, and DLP — all in one.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">SASE</div>
+          <div class="product-name">Secure Access Service Edge (SASE)</div>
+          <p class="product-desc">SSE + SD-WAN networking combined. The full package. Security and networking converged into a single cloud service. Gartner named the category; Netskope is rated a leader in it. Best for organizations that want to replace their entire VPN + firewall + web filter stack in one go.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Converged</div>
+          <div class="product-name">Unified Data Security</div>
+          <p class="product-desc">A single data protection layer that spans all the products. Instead of separate DLP rules for email, for cloud apps, and for the web, Unified Data Security enforces one consistent policy everywhere your data lives.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2. AI SECURITY ── -->
+    <div class="category-block theme-purple">
+      <div class="category-label">
+        <div class="cat-icon">🤖</div>
+        <div>
+          <h2>AI Security</h2>
+          <p>Purpose-built for the generative AI era — keeping ChatGPT and AI tools safe at work</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <div class="product-name">AI Gateway</div>
+          <p class="product-desc">A traffic cop for AI tools. Whenever employees use ChatGPT, Copilot, or any AI service, AI Gateway sits in between — logging what's happening, blocking sensitive data from being pasted in, and enforcing your company's AI policies in real time.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <div class="product-name">Agentic Broker</div>
+          <p class="product-desc">Built for AI agents (AI bots that act autonomously). As companies build AI workflows that run on autopilot, the Agentic Broker ensures those agents only access what they're authorized to access — preventing them from going rogue.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <div class="product-name">AI Guardrails</div>
+          <p class="product-desc">Sets operational boundaries for AI models. Think of it as a safety fence around the AI so it can't leak company data, can't be manipulated by malicious prompts, and stays within the scope it's supposed to work in.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <div class="product-name">AI Red Teaming</div>
+          <p class="product-desc">Tests your own AI systems for vulnerabilities before attackers find them. Like hiring a hacker to break your AI — on purpose — so you can fix the holes first.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <div class="product-name">GenAI Security</div>
+          <p class="product-desc">The broader framework for safely enabling generative AI across the organization. Gives teams visibility into all AI tool usage, risk scoring for different tools, and controls to allow/restrict specific apps or prompts.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 3. WEB, CLOUD & AI SECURITY ── -->
+    <div class="category-block theme-brand">
+      <div class="category-label">
+        <div class="cat-icon">🌐</div>
+        <div>
+          <h2>Web, Cloud &amp; AI Security</h2>
+          <p>Real-time protection for every website visit and cloud app interaction</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">Web Security</div>
+          <div class="product-name">Next Gen Secure Web Gateway (NG-SWG)</div>
+          <p class="product-desc">The core of SSE. Every time someone in your company visits a website, this gateway inspects it — blocking malware, phishing, and malicious content. Unlike old web proxies, it understands cloud app context, not just URLs.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Cloud Security</div>
+          <div class="product-name">Cloud Access Security Broker (CASB)</div>
+          <p class="product-desc">Imagine a security guard sitting between your employees and every cloud app they use (Salesforce, Box, Slack, etc.). CASB watches what they're doing, prevents files from being shared externally, and stops risky behavior — without blocking access.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Zero Trust</div>
+          <div class="product-name">Private Access (ZTNA)</div>
+          <p class="product-desc">The VPN replacement. Zero Trust Network Access means instead of giving someone full network access when they connect, you only let them reach the specific app they need. If their laptop is compromised, the blast radius is tiny. Works from anywhere.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Network Security</div>
+          <div class="product-name">Cloud Firewall (FWaaS)</div>
+          <p class="product-desc">A traditional firewall — but delivered from the cloud. Instead of a box in your server room, Netskope's firewall lives in the cloud and protects all outbound internet traffic from your offices, branches, and remote workers.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Browser Security</div>
+          <div class="product-name">Enterprise Browser</div>
+          <p class="product-desc">A purpose-built secure browser for work. Especially useful for contractors and unmanaged personal devices — they access company apps through this browser, which enforces security policies without needing to install software on their personal machine.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Isolation</div>
+          <div class="product-name">Remote Browser Isolation (RBI)</div>
+          <p class="product-desc">When someone needs to visit a risky or uncategorized website, RBI loads that site in a remote cloud container — not on the user's actual computer. The user sees a visual stream. If the site is malicious, nothing reaches the endpoint.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Threat Protection</div>
+          <div class="product-name">Threat Protection</div>
+          <p class="product-desc">ML-powered detection and blocking of ransomware, malware, and phishing attacks — both in web traffic and inside cloud apps. It understands the difference between a legitimate file upload and ransomware encrypting your cloud storage.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 4. DATA SECURITY ── -->
+    <div class="category-block theme-green">
+      <div class="category-label">
+        <div class="cat-icon">🗂️</div>
+        <div>
+          <h2>Data Security</h2>
+          <p>Find, classify, and protect sensitive data wherever it lives or travels</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">Data Security</div>
+          <div class="product-name">Data Loss Prevention (DLP)</div>
+          <p class="product-desc">Stops sensitive data from leaving the organization. Whether an employee emails a spreadsheet of customer SSNs, uploads source code to personal Dropbox, or pastes passwords into Slack — DLP catches it and enforces your policy. Powered by ML to understand context, not just keywords.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Posture Management</div>
+          <div class="product-name">Data Security Posture Management (DSPM)</div>
+          <p class="product-desc">Finds sensitive data hiding in unexpected places across your cloud environments — like a credit card number in an S3 bucket no one is monitoring, or PII in a dev database. Then it helps you understand the risk and fix it before there's a breach.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">SaaS Security</div>
+          <div class="product-name">SaaS Security Posture Management (SSPM)</div>
+          <p class="product-desc">Continuously audits your SaaS apps (Salesforce, Microsoft 365, etc.) for misconfigurations. Did someone accidentally make your CRM publicly accessible? Is MFA disabled for a key app? SSPM catches these before attackers do.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 5. NETWORKING ── -->
+    <div class="category-block theme-orange">
+      <div class="category-label">
+        <div class="cat-icon">📡</div>
+        <div>
+          <h2>Networking (NewEdge &amp; SD-WAN)</h2>
+          <p>Fast, reliable connectivity and networking that works hand-in-hand with security</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">Secure SD-WAN (Next Gen SASE Branch)</div>
+          <p class="product-desc">Software-defined networking for offices and branches. Instead of expensive MPLS circuits, SD-WAN routes traffic intelligently across the internet — and since it's Netskope's SD-WAN, security policy is baked in from the start, not added on top.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">Endpoint SD-WAN</div>
+          <p class="product-desc">Brings SD-WAN intelligence to individual laptops and devices. Remote workers get the same fast, optimized, secure connectivity as someone sitting in a corporate office — without a VPN concentrator in the middle slowing everything down.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">Micro Branch ("Branch of One")</div>
+          <p class="product-desc">A single device that replaces an entire branch IT stack. Plug it in at a small office or retail location and it handles everything: local connectivity, SD-WAN, and security enforcement — with zero dedicated IT staff on-site needed.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">IoT Intelligent Access</div>
+          <p class="product-desc">Purpose-built for IoT devices (printers, cameras, building systems, medical equipment). These devices can't run security software, so Netskope wraps them in a secure network perimeter that controls what they can talk to.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">Wireless WAN</div>
+          <p class="product-desc">Manages and secures wireless networks within the Netskope platform — giving you visibility and control over Wi-Fi traffic just like wired traffic, with no separate wireless security stack needed.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Networking</div>
+          <div class="product-name">Multi-Cloud Networking</div>
+          <p class="product-desc">Provides visibility and control across AWS, Azure, and Google Cloud networking — so you can see how data is flowing between clouds and enforce consistent security posture across your entire multi-cloud environment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 6. ANALYTICS ── -->
+    <div class="category-block theme-pink">
+      <div class="category-label">
+        <div class="cat-icon">📊</div>
+        <div>
+          <h2>Analytics &amp; Intelligence</h2>
+          <p>Turn security data into decisions your team can actually act on</p>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-tag">Analytics</div>
+          <div class="product-name">Advanced Analytics</div>
+          <p class="product-desc">Transforms the massive stream of security events into dashboards, trends, and actionable insights. Security teams can see which users are the riskiest, which apps are being over-shared, and where policy gaps exist — and drill down with one click.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Experience</div>
+          <div class="product-name">Digital Experience Management (DEM)</div>
+          <p class="product-desc">Monitors the end-user experience — latency, app performance, connectivity quality — from every device and location. Helps IT quickly diagnose whether a slowness complaint is a security issue, a network issue, or an app issue, without finger-pointing between teams.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-tag">Intelligence</div>
+          <div class="product-name">SkopeAI</div>
+          <p class="product-desc">Netskope's core AI and ML engine, embedded throughout the entire platform. It powers smarter DLP classifications, more accurate threat detection, anomaly detection for insider risk, and automated policy recommendations. It gets smarter over time as it processes more data.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SOLUTIONS / USE CASES ════════════════════════════════ -->
+<section class="solutions-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Use Cases</div>
+      <h2>What problems does Netskope actually solve?</h2>
+      <p>Products are tools. Here's what organizations actually use Netskope for day-to-day.</p>
+    </div>
+
+    <div class="use-case-grid">
+      <div class="use-case-card">
+        <span class="use-case-icon">🏠</span>
+        <h3>Hybrid Work Security</h3>
+        <p>Employees work from anywhere — Netskope ensures they're protected whether they're in the office, at home, or at a coffee shop, without slowing them down.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">🚪</span>
+        <h3>Replace Legacy VPNs</h3>
+        <p>VPNs are slow, clunky, and give attackers too much access. Netskope's ZTNA replaces them with fast, granular, zero trust access to specific apps.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">🤖</span>
+        <h3>Safely Enable ChatGPT &amp; GenAI</h3>
+        <p>Let employees use AI tools without letting sensitive data leak. Netskope provides visibility and control over every AI interaction — enabling innovation without the risk.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">🦠</span>
+        <h3>Advanced Threat Protection</h3>
+        <p>Netskope decodes and inspects encrypted cloud traffic that other security solutions can't see — catching ransomware and malware hiding inside legitimate cloud apps.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">📁</span>
+        <h3>Data Protection &amp; Compliance</h3>
+        <p>GDPR, HIPAA, PCI-DSS, CCPA — Netskope's DLP enforces compliance across cloud, web, email, and devices with one unified policy engine.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">😈</span>
+        <h3>Insider Risk Management</h3>
+        <p>Detect and respond to employees (or ex-employees) trying to walk out the door with sensitive data — whether intentional or accidental.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">☁️</span>
+        <h3>Secure Cloud Apps (SaaS)</h3>
+        <p>Get deep visibility into how employees use Microsoft 365, Google Workspace, Salesforce, Box, and thousands of other SaaS apps — and enforce granular controls.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">🏗️</span>
+        <h3>AWS, Azure &amp; GCP Security</h3>
+        <p>Audit and secure your cloud infrastructure posture. Find misconfigured storage buckets, open security groups, and compliance gaps across all three major clouds.</p>
+      </div>
+      <div class="use-case-card">
+        <span class="use-case-icon">⚡</span>
+        <h3>Network Transformation</h3>
+        <p>Consolidate your network stack — ditch the MPLS, the branch firewalls, and the WAN optimizers — into a single cloud-delivered SASE architecture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INDUSTRIES ════════════════════════════════════════════ -->
+<section class="industries-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Industries &amp; Sectors</div>
+      <h2>Who uses Netskope?</h2>
+      <p>Netskope has purpose-built solutions and compliance expertise for specific industries and government sectors.</p>
+    </div>
+
+    <div class="industry-grid">
+      <div class="industry-chip"><span class="ic-icon">🏦</span>Financial Services</div>
+      <div class="industry-chip"><span class="ic-icon">🏥</span>Healthcare &amp; Life Sciences</div>
+      <div class="industry-chip"><span class="ic-icon">💻</span>High Technology</div>
+      <div class="industry-chip"><span class="ic-icon">⚖️</span>Legal</div>
+      <div class="industry-chip"><span class="ic-icon">🏭</span>Manufacturing</div>
+      <div class="industry-chip"><span class="ic-icon">🛍️</span>Retail &amp; Hospitality</div>
+      <div class="industry-chip"><span class="ic-icon">🔧</span>Services</div>
+      <div class="industry-chip"><span class="ic-icon">⚡</span>Utilities &amp; Energy</div>
+      <div class="industry-chip"><span class="ic-icon">🏛️</span>US Federal Government</div>
+      <div class="industry-chip"><span class="ic-icon">🏙️</span>State &amp; Local Gov</div>
+      <div class="industry-chip"><span class="ic-icon">🎓</span>Higher Education</div>
+      <div class="industry-chip"><span class="ic-icon">📚</span>K-12 Education</div>
+      <div class="industry-chip"><span class="ic-icon">🦘</span>Australian Government</div>
+      <div class="industry-chip"><span class="ic-icon">🇬🇧</span>UK Public Sector</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT ALL FITS ════════════════════════════════════════ -->
+<section class="fit-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">The Journey</div>
+      <h2>How organizations adopt Netskope</h2>
+      <p>Most customers don't rip-and-replace everything on day one. Here's a typical progression.</p>
+    </div>
+
+    <div class="journey-steps">
+      <div class="journey-step">
+        <div class="step-num">1</div>
+        <h3>Start with SSE</h3>
+        <p>Replace the old web proxy and add cloud app visibility. Immediate value: see all shadow IT and stop data leaks.</p>
+      </div>
+      <div class="journey-step">
+        <div class="step-num">2</div>
+        <h3>Kill the VPN</h3>
+        <p>Replace legacy VPN with ZTNA (Private Access). Faster, safer, and your remote workers will thank you.</p>
+      </div>
+      <div class="journey-step">
+        <div class="step-num">3</div>
+        <h3>Tighten Data Security</h3>
+        <p>Deploy DLP and DSPM to find sensitive data and enforce consistent policies across all channels.</p>
+      </div>
+      <div class="journey-step">
+        <div class="step-num">4</div>
+        <h3>Add AI Governance</h3>
+        <p>Use AI Gateway and Guardrails to let the business use AI tools productively — without compliance nightmares.</p>
+      </div>
+      <div class="journey-step">
+        <div class="step-num">5</div>
+        <h3>Converge Networking</h3>
+        <p>Add SD-WAN to complete the SASE picture. Branches, remote users, and cloud apps — all one platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<div class="footer-bar">
+  Content sourced from <a href="https://www.netskope.com" target="_blank">netskope.com</a> · Compiled June 2026
+</div>
+
+</body>
+</html>
